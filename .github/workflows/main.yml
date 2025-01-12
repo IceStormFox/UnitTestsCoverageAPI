@@ -26,6 +26,6 @@ jobs:
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
       with:
-        files: UnitTestsCoverageAPI.Tests/TestResults/*.xml
+        files: UnitTestsCoverageAPI.Tests/TestResults/**/coverage.cobertura.xml
         flags: pull_request
         name: codecov-pull-request
