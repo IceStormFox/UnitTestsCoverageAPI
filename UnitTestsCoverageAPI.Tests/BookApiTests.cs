@@ -1,20 +1,28 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using System.Net;
 using NUnit.Framework.Legacy;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
 
-namespace BookApi.Tests
+namespace UnitTestsCoverageAPI.Tests
 {
     public class BookApiTests
     {
         private HttpClient _client;
+        private WebApplicationFactory<Program> _appFactory;
 
         [SetUp]
         public void Setup()
         {
             var appFactory = new WebApplicationFactory<Program>();
             _client = appFactory.CreateClient();
+            _appFactory = appFactory;
+        }
+
+        [TearDown] public void TearDown() 
+        { 
+            _client.Dispose(); _appFactory.Dispose(); 
         }
 
         [Test]
