@@ -23,8 +23,9 @@ jobs:
       with:
         name: code-coverage
         path: $(System.DefaultWorkingDirectory)/TestResults
-    - name: Upload coverage to Coveralls
-      uses: coverallsapp/github-action@latest
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v2
       with:
-        path-to-lcov: ./TestResults/lcov.info
-
+        files: ./TestResults/*.xml
+        flags: pull_request
+        name: codecov-pull-request
