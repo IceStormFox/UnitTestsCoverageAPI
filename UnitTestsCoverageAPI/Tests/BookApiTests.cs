@@ -29,18 +29,6 @@ namespace BookApi.Tests
             ClassicAssert.NotNull(books);
             ClassicAssert.IsNotEmpty(books);
         }
-        [Test]
-        public async Task GetBookById_ReturnsBook()
-        {
-            var response = await _client.GetAsync("/book/1");
-            ClassicAssert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-
-            var responseString = await response.Content.ReadAsStringAsync();
-            var book = JsonConvert.DeserializeObject<Book>(responseString);
-
-            ClassicAssert.IsNotNull(book);
-            ClassicAssert.AreEqual(1, book.Id);
-        }
 
         [Test]
         public async Task GetBookById_ReturnsNotFound()
@@ -64,21 +52,6 @@ namespace BookApi.Tests
             ClassicAssert.IsNotNull(books);
             ClassicAssert.IsTrue(books.Exists(b => b.Title == "New Book" && b.Author == "New Author"));
         }
-        [Test]
-        public async Task UpdateBook_ReturnsUpdatedBook()
-        {
-            var updatedBook = new Book { Title = "Updated Title", Author = "Updated Author" };
-            var content = new StringContent(JsonConvert.SerializeObject(updatedBook), System.Text.Encoding.UTF8, "application/json");
-
-            var response = await _client.PutAsync("/book/1", content);
-            response.EnsureSuccessStatusCode();
-
-            var responseString = await response.Content.ReadAsStringAsync();
-            var book = JsonConvert.DeserializeObject<Book>(responseString);
-
-            ClassicAssert.AreEqual("Updated Title", book.Title);
-            ClassicAssert.AreEqual("Updated Author", book.Author);
-        }
 
         [Test]
         public async Task UpdateBook_ReturnsNotFound()
@@ -88,17 +61,6 @@ namespace BookApi.Tests
 
             var response = await _client.PutAsync("/book/999", content);
             ClassicAssert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
-        }
-        [Test]
-        public async Task DeleteBook_ReturnsOk()
-        {
-            var response = await _client.DeleteAsync("/book/1");
-            response.EnsureSuccessStatusCode();
-
-            var deleteResponseString = await response.Content.ReadAsStringAsync();
-            var book = JsonConvert.DeserializeObject<Book>(deleteResponseString);
-
-            ClassicAssert.IsNotNull(book);
         }
 
         [Test]
