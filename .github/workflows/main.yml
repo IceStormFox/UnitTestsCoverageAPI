@@ -22,10 +22,10 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: code-coverage
-        path: $(System.DefaultWorkingDirectory)/TestResults
+        path: UnitTestsCoverageAPI.Tests/TestResults
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
       with:
-        files: ./TestResults/*.xml
+        files: UnitTestsCoverageAPI.Tests/TestResults/*.xml
         flags: pull_request
         name: codecov-pull-request
