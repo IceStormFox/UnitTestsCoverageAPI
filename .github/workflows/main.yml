@@ -29,3 +29,4 @@ jobs:
         files: UnitTestsCoverageAPI.Tests/TestResults/**/coverage.cobertura.xml
         flags: pull_request
         name: codecov-pull-request
+        token: ${{ secrets.CODECOV_TOKEN }}
